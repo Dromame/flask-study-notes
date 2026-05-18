@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>board</title>
+</head>
+<body>
+<h1>message board</h1>
+<form method="post">
+    <label>name</label>
+    <textarea name="name"></textarea>
+
+    <label>message</label>
+    <textarea name="message"></textarea>
+
+    <button type="submit">提交留言</button>
+</form>
+{% for item in messages %}
+<p>{{item.name}}:{{item.message}}</p>
+{% endfor %}
+</body>
+</html>
