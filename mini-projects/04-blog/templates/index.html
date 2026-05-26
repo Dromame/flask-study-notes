@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Blog Page{% endblock %}
+{% block content %}
+<h1>latest article</h1>
+{% for post in posts %}
+<article>
+    <h2>
+        <a href="{{ url_for('blog.detail', post_id=post.id) }}">
+            {{ post.title }}
+        </a>
+    </h2>
+    <p>{{ post.summary }}</p>
+    <small>{{ post.created_at.strftime("%Y-%m-%d %H:%M") }}</small>
+</article>
+<hr>
+{% else %}
+<p>empty</p>
+{% endfor %}
+{% endblock %}

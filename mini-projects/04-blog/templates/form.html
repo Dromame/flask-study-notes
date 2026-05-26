@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% if post %}
+{% set page_title = "edit" %}
+{% else %}
+{% set page_title = "write new" %}
+{% endif %}
+{% block title %}{{ page_title }}{% endblock %}
+{% block content %}
+<h1>{{ page_title }}</h1>
+ <form method="post">
+ <p>
+<label>title</label><br>
+     <input type="text" name="title" value="{{ post.title if post else ''}}">
+</p>
+<p>
+<label>abstract</label><br>
+<input type="text" name="summary" value="{{ post.summary if post else ''}}">
+</p>
+<p>
+<label>content</label><br>
+<textarea name="body" rows="10" cols="60">{{ post.body if post else ''}}</textarea>
+</p>
+<button type="submit">save</button>
+ </form>
+{% endblock %}
