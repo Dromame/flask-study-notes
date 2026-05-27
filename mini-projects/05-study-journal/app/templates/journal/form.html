@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {% if entry %}edit record{% else %}new record{% endif %}
+{% endblock %}
+
+{% block content %}
+  <section class="form-card">
+    <h1>{% if entry %}edit record{% else %}new record{% endif %}</h1>
+
+    <form method="post" enctype="multipart/form-data">
+      <label>title</label>
+      <input
+        type="text"
+        name="title"
+        value="{{ entry.title if entry else '' }}"
+        required
+      >
+
+      <label>main body</label>
+      <textarea name="body" rows="8" required>{{ entry.body if entry else '' }}</textarea>
+
+      {% if not entry %}
+        <label>cover</label>
+        <input type="file" name="cover" accept="image/*">
+      {% endif %}
+
+      <button type="submit">
+        {% if entry %}save change{% else %}send record{% endif %}
+      </button>
+    </form>
+  </section>
+{% endblock %}

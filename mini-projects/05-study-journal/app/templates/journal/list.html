@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}我的记录{% endblock %}
+
+{% block content %}
+  <section class="page-head">
+    <h1>我的记录</h1>
+    <a class="button-link" href="{{ url_for('journal.create_entry') }}">
+      新建记录
+    </a>
+  </section>
+
+  <section class="stack">
+    {% for entry in entries %}
+      <article class="card">
+        <h2>{{ entry.title }}</h2>
+        <p class="meta">{{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+        <p>
+          {{ entry.body[:180] }}
+          {% if entry.body|length > 180 %}...{% endif %}
+        </p>
+
+        <div class="actions">
+          <a
+            class="button-link secondary"
+            href="{{ url_for('journal.edit_entry', entry_id=entry.id) }}"
+          >
+            编辑
+          </a>
+
+          <form
+            method="post"
+            action="{{ url_for('journal.delete_entry', entry_id=entry.id) }}"
+          >
+            <button class="danger" type="submit">删除</button>
+          </form>
+        </div>
+      </article>
+    {% else %}
+      <p>你还没有创建任何记录。</p>
+    {% endfor %}
+  </section>
+{% endblock %}

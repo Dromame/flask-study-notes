@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Study Journal{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <h1>Study Journal</h1>
+    <p>把 Flask 学习中的想法、踩坑和练习记录下来。</p>
+  </section>
+
+  <section class="card-grid">
+    {% for entry in entries %}
+      <article class="card">
+        {% if entry.cover_filename %}
+          <img
+            src="{{ url_for('static', filename='uploads/' ~ entry.cover_filename) }}"
+            alt="cover"
+          >
+        {% endif %}
+
+        <h2>{{ entry.title }}</h2>
+        <p class="meta">
+          by {{ entry.author.username }}
+          · {{ entry.created_at.strftime('%Y-%m-%d %H:%M') }}
+        </p>
+        <p>
+          {{ entry.body[:120] }}
+          {% if entry.body|length > 120 %}...{% endif %}
+        </p>
+      </article>
+    {% else %}
+      <p>no record</p>
+    {% endfor %}
+  </section>
+{% endblock %}
